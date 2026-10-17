@@ -1,53 +1,76 @@
 import pyttsx3
 
-def falar(texto):
-    """Função segura para falar no Windows usando SAPI5."""
-    print(f"Assistente: {texto}")
+def configurar_motor(motor):
+    """Ajusta a velocidade e tenta encontrar uma voz em português mais natural."""
+    motor.setProperty('rate', 180)  # Velocidade da fala (padrão costuma ser 200, abaixar ajuda na clareza)
+    motor.setProperty('volume', 1.0) # Volume de 0.0 a 1.0
     
+    # Tenta selecionar uma voz em português do Brasil, se disponível
+    vozes = motor.getProperty('voices')
+    for voz in vozes:
+        if 'portuguese' in voz.name.lower() or 'brazil' in voz.name.lower() or 'pt-br' in voz.id.lower():
+            motor.setProperty('voice', voz.id)
+            break
+
+def falar(texto):
+    """Função responsável por transformar texto em áudio de forma segura."""
+    # Substitui a grafia oficial pela fonética correta para o leitor do Windows falar bonito
+    texto_falado = texto.replace("EchoCode", "Ekocoude").replace("echocode", "ekocoude")
+    
+    print(f"EchoCode: {texto}") # No terminal continua escrito certinho
     try:
         motor = pyttsx3.init('sapi5')
-        
-        # Opcional: listar e selecionar uma voz em português se houver
-        vozes = motor.getProperty('voices')
-        for voz in vozes:
-            if 'portuguese' in voz.name.lower() or 'brazil' in voz.name.lower():
-                motor.setProperty('voice', voz.id)
-                break
-                
-        motor.say(texto)
+        configurar_motor(motor)
+        motor.say(texto_falado) # O motor lê a versão fonética
         motor.runAndWait()
-        motor.stop() # Garante que o motor libera os recursos após falar
+        motor.stop()
     except Exception as e:
         print(f"Erro no áudio: {e}")
 
-def apresentar_desafio():
-    """Função que apresenta o conceito e faz uma pergunta simples."""
-    falar("Olá! Seja bem-vindo ao seu assistente de programação acessível.")
-    falar("Vamos praticar estruturas condicionais, o famoso if e else.")
-    
-    pergunta = (
-        "Imagine que queremos verificar se uma pessoa é maior de idade. "
-        "Qual palavra-chave em Python nós usamos para representar a condição "
-        "de 'se' algo acontecer? É a opção 1 para 'if', ou opção 2 para 'while'?"
-    )
-    falar(pergunta)
+def apresentar_conceito():
+    falar("Você escolheu aprender conceitos. O tema de hoje é: Variáveis.")
+    falar("Uma variável é como uma caixinha na memória do computador onde guardamos um valor para usar depois.")
 
-def verificar_resposta():
-    """Função que recebe a resposta do usuário e valida."""
-    # Por enquanto, usando input de texto (depois podemos evoluir para voz!)
-    resposta = input("Digite o número da sua resposta (1 ou 2): ")
+def iniciar_desafio():
+    falar("Iniciando desafio de código.")
+    falar("Qual comando em Python nós usamos para mostrar algo na tela? É print ou input?")
     
-    if resposta == "1":
-        falar("Parabéns! Resposta correta. O if é usado para criar condições.")
+    # Aqui mantemos o input de texto para a resposta por enquanto
+    resposta = input("Digite sua resposta: ").strip().lower()
+    
+    if resposta == "print":
+        falar("Parabéns! Resposta correta, o print exibe informações na tela.")
     else:
-        falar("Ops, não foi bem isso. A resposta certa é a opção 1, o if.")
+        falar("Ops! A resposta correta seria print.")
 
-# --- Execução Principal ---
-def main():
-    apresentar_desafio()
-    verificar_resposta()
-    falar("Fim do nosso primeiro desafio. Até a próxima!")
+def menu_principal():
+    while True:
+        print("\n--- MENU ECOCODE ---")
+        print("1. Ouvir Conceito do Dia")
+        print("2. Praticar Desafio")
+        print("3. Sair")
+        
+        # Texto completo que o assistente vai ler para o usuário
+        texto_menu = (
+            "Menu principal. "
+            "Digite 1 para ouvir o conceito do dia. "
+            "Digite 2 para praticar um desafio. "
+            "Ou digite 3 para sair."
+        )
+        falar(texto_menu)
+        
+        opcao = input("Escolha uma opção (1, 2 ou 3): ").strip()
+        
+        if opcao == "1":
+            apresentar_conceito()
+        elif opcao == "2":
+            iniciar_desafio()
+        elif opcao == "3":
+            falar("Encerrando o EchoCode. Bons estudos!")
+            break
+        else:
+            falar("Opção inválida. Por favor, escolha entre 1, 2 ou 3.")
 
-# Chama o programa principal
 if __name__ == "__main__":
-    main()
+    falar("Bem-vindo ao EchoCode, seu assistente de programação acessível.")
+    menu_principal()
