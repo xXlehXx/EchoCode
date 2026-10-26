@@ -1,0 +1,64 @@
+{
+    "1": {
+        "tema": "Variáveis e Saída de Dados",
+        "explicacao": "Uma variável guarda valores na memória. Para exibir mensagens na tela em Python, usamos a função print.",
+        "questoes": [
+            {
+                "pergunta": "Qual é a função em Python usada para mostrar algo na tela?",
+                "alternativas": {
+                    "a": "input",
+                    "b": "print",
+                    "c": "echo",
+                    "d": "scan"
+                },
+                "resposta_certa": "b",
+                "dica": "Pense em uma palavra em inglês que significa 'imprimir' ou exibir."
+            },
+            {
+                "pergunta": "Qual destas opções é uma atribuição correta de variável em Python?",
+                "alternativas": {
+                    "a": "10 = x",
+                    "b": "x == 10",
+                    "c": "x = 10",
+                    "d": "var x = 10"
+                },
+                "resposta_certa": "c",
+                "dica": "O nome da variável fica sempre à esquerda, seguido de um único sinal de igual."
+            }
+        ]
+    },
+    "2": {
+        "tema": "Estruturas Condicionais (if)",
+        "explicacao": "O comando if serve para tomar decisões no código, verificando se uma condição é verdadeira.",
+        "questoes": [
+            {
+                "pergunta": "Qual palavra-chave usamos para iniciar uma condicional básica em Python?",
+                "alternativas": {
+                    "a": "when",
+                    "b": "if",
+                    "c": "check",
+                    "d": "case"
+                },
+                "resposta_certa": "b",
+                "dica": "É uma palavrinha de duas letras muito comum que significa 'se' em inglês."
+            }
+        ]
+    },
+    "3": {
+        "tema": "Estruturas de Repetição (Loops)",
+        "explicacao": "Os loops servem para repetir blocos de código. O while executa enquanto uma condição for verdadeira.",
+        "questoes": [
+            {
+                "pergunta": "Qual loop em Python executa repetidamente enquanto uma condição for verdadeira?",
+                "alternativas": {
+                    "a": "for",
+                    "b": "loop",
+                    "c": "while",
+                    "d": "repeat"
+                },
+                "resposta_certa": "c",
+                "dica": "O nome desse loop significa 'enquanto' em inglês."
+            }
+        ]
+    }
+}
